@@ -1,0 +1,182 @@
+<div class="row">
+    <ba-card baCardClass="with-scroll">
+        <div class="row" >
+            <div class="col-sm-12">
+                <button type="button" (click)="onList()" class="btn btn-default btn-with-icon notHover" >
+                    <i class="fa fa-list-alt"></i>Lista
+                </button>
+                <button [disabled]="!form.valid" type="submit" (click)="saveNew(form.value)" class="btn btn-default btn-with-icon notHover" >
+                    <i class="fa fa-save"></i>Salvar e Novo
+                </button>
+                <button [disabled]="!form.valid" type="submit" (click)="saveList(form.value)"  class="btn btn-default btn-with-icon notHover" >
+                    <i class="fa fa-save"></i>Salva e Lista
+                </button>
+                <button type="button"  (click)="onReset()"  class="btn btn-default btn-with-icon notHover" >
+                    <i class="fa fa-eraser"></i>Limpar
+                </button>
+                <button type="button"  (click)="onTest()"  class="btn btn-default btn-with-icon notHover" >
+                    <i class="fa fa-eraser"></i>Limpar
+                </button>
+            </div>
+        </div>
+    </ba-card>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+    <!-- START ARTIGO -->
+    <div class="row">
+        <ba-card title="Cadastro de Artigo" baCardClass="with-scroll">
+
+            <fieldset formGroupName="artigo">
+
+                <input formControlName="id" type="hidden">
+                <input formControlName="site_capa_id" type="hidden">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Título</label>
+                            <input formControlName="titulo" type="text" class="form-control" placeholder="Título...">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Subtítulo</label>
+                            <input formControlName="subtitulo" type="text" class="form-control" placeholder="Subtítulo...">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Resumo</label>
+                            <input formControlName="resumo" type="text" class="form-control" placeholder="Resumo">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="pais">Categoria</label>
+                            <select class="form-control" formControlName="categoria">
+                                <option *ngFor="let c of categorias" [ngValue]="c.id"> {{c.nome}} </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <textarea formControlName="descricao" type="text" class="form-control" placeholder="Descrição do artigo..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+
+        </ba-card>
+    </div>
+    <!-- END ARTIGO -->
+    <!-- START CAPA -->
+    <div class="row">
+        <div>
+            <ba-card title="Capa do Artigo" baCardClass="with-scroll">
+
+                <fieldset formGroupName="capa">
+                <input formControlName="id" type="hidden">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="row"> 
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <label for="title">Título</label>
+                                        <input formControlName="titulo" type="text" class="form-control" placeholder="Título...">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 offset-md-1">
+                                    <div class="form-group">
+                                        <label for="subtitle">Subtítulo</label>
+                                        <input formControlName="subtitulo" type="text" class="form-control" placeholder="Subtítulo...">
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="row"> 
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <label for="link_titulo">Título do Link</label>
+                                        <input formControlName="link_titulo" type="text" class="form-control" placeholder="Título do Link...">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 offset-md-1">
+                                    <div class="form-group">
+                                        <label for="link">Link</label>
+                                        <input formControlName="link" type="text" class="form-control" placeholder="Endereco do artigo...">
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="row"> 
+                                <div class="col-sm-11">
+                                    <div class="form-group">
+                                        <label for="text">Descrição</label>
+                                        <input formControlName="descricao" type="text" class="form-control" placeholder="Descrição...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-sm-3">
+                            <ba-card title="Imagem de Capa" baCardClass="with-scroll" style="text-align: -webkit-center; text-align: -moz-center;">
+                                <ba-picture-uploader 
+                                    [picture]="profile.picture" 
+                                    [defaultPicture]="defaultPicture" 
+                                    [uploaderOptions]="uploaderOptions"
+                                    (onUploadCompleted)="onUploadCompleted($event)">
+                                </ba-picture-uploader>
+                            </ba-card>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </ba-card>
+        </div>
+    </div>
+    <!-- END CAPA -->
+    <!-- START CONTEUDO -->
+    <div class="row">
+        <ba-card title="Cadastro de Conteúdo do Artigo" baCardClass="with-scroll">
+
+            <fieldset formGroupName="conteudo">
+                <input type="hidden" formControlName="id">
+                <input type="hidden" formControlName="site_artigo_id">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Título</label>
+                            <input formControlName="titulo" type="text" class="form-control" placeholder="Título do conteúdo...">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Nome do Arquivo</label>
+                            <input formControlName="arquivo_fonte" type="text" class="form-control" placeholder="Nome do arquivo...">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="title">Descrição</label>
+                            <textarea formControlName="descricao" type="text" class="form-control" placeholder="Descrição..."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="descriptioncode">Description Code</label>
+                            <textarea formControlName="codigo_fonte" type="text" class="form-control" placeholder="Código que será exibido"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+
+        </ba-card>
+    </div>
+    <!-- END CONTEUDO -->
+</form>

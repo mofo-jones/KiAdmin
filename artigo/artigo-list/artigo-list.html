@@ -1,0 +1,27 @@
+<div class="widgets">
+    <div class="row">
+        <ba-card baCardClass="with-scroll todo-panel" style="padding-bottom: 0px;">
+            <div class="col-sm-12 col-md-6">
+                <button type="button" (click)="onNew()" class="btn btn-default btn-with-icon btn-hover btn-150"><i class="fa fa-plus-circle fa-lg"></i>Novo</button>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="input-group" style="margin-bottom: 0px;">
+                    <input type="text" class="form-control"  [(ngModel)]="search"  placeholder="Buscar..." (keydown.enter)="onSearch(search)">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" (click)="onSearch(search)"><i class="fa fa-search fa-lg"></i></button>
+                    </span>
+                </div> 
+            </div>
+        </ba-card>
+    </div>
+    <div class="row">
+        <ba-card title="Lista de Artigos" baCardClass="with-scroll table-panel">
+            <ng2-smart-table class="table-striped"
+                             [settings]="settings" 
+                             [source]="source" 
+                             (delete)="onDelete($event)"
+                             (edit)="onEdit($event)">
+            </ng2-smart-table>
+        </ba-card>
+    </div>    
+</div>

@@ -1,0 +1,280 @@
+<!--<form [formGroup]="form"  (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+    <div class="widgets">
+        <div class="row">
+            <ba-card baCardClass="with-scroll">
+                <div class="row" >
+                    <div class="form-group col-sm-12" style="margin-bottom: 0px;">
+                        <div class="button-150">
+                            <button type="button" (click)="onList()" class="btn btn-default btn-with-icon notHover" style="height: 35px;" >
+                                <i class="fa fa-list-alt"></i>Lista
+                            </button>
+                            <button [disabled]="!form.valid" type="submit" (click)="saveNew()" class="btn btn-default btn-with-icon notHover" style="height: 35px;">
+                                <i class="fa fa-save"></i>Salvar e Novo
+                            </button>
+                            <button [disabled]="!form.valid" type="submit" (click)="saveList()"  class="btn btn-default btn-with-icon notHover" style="height: 35px;">
+                                <i class="fa fa-save"></i>Salva e Lista
+                            </button>
+                            <button type="button"  (click)="onCancel()"  class="btn btn-default btn-with-icon notHover" style="height: 35px;">
+                                <i class="fa fa-eraser"></i>Limpar
+                            </button>
+                            <button type="button" class="btn btn-default btn-with-icon notHover" style="height: 35px;">
+                                <i class="fa fa-asterisk"></i> Compras
+                            </button>
+                            <button type="button" [disabled]="form.id == ''" (click)="onContatos()" class="btn btn-default btn-with-icon notHover" style="height: 35px;">
+                                <i class="fa fa-address-book"></i> Contatos ({{totalContatos}})
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ba-card>
+        </div>
+        <div class="row"> 
+            <input type="hidden" formControlName="id" class="form-control" value="{{form.value.id}}" id="id">
+            <div style="z-index: 10"> 
+                <ba-card title="Dados Pessoais"  class="z0" baCardClass="table-panel z-1">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input formControlName="nome" type="text" class="form-control" id="nome" placeholder="Nome?">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="dtNascimento">Nascimento</label>
+                                <p-calendar [locale]="pt" dataType="string" formControlName="dtNascimento" dateFormat="dd/mm/yy" styleClass="form-control calendar" inputStyleClass="form-control h-35 txt-center" placeholder="13/07/1985?"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="genero">Gênero</label>
+                                <div class="form-control" style="padding: 0px 0px 0px 12px;">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="radio-inline custom-radio nowrap">
+                                                <input formControlName="genero" type="radio" name="genero" id="inlineRadio2" value="0">
+                                                <span>Feminino</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="radio-inline custom-radio nowrap">
+                                                <input formControlName="genero" type="radio" name="genero" id="inlineRadio1" value="1">
+                                                <span>Masculino</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="cpf">CPF</label>
+                                <p-inputMask styleClass="form-control h-35" formControlName="cpf" mask="999.999.999-99" placeholder="000.000.000-00?"></p-inputMask>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="rg">RG</label>
+                                <input formControlName="rg" type="text" class="form-control" id="rg" placeholder="0000000000?" maxlength="10">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="naturalidade">Naturalidade</label>
+                                <input formControlName="naturalidade" type="text" class="form-control" id="naturalidade" placeholder="Taquariense?">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="estadoCivil">Estado Civil</label>
+                                <select class="form-control" formControlName="estadoCivil" (ngModelChange)="estadoCivilChange($event)">
+                                    <option *ngFor="let p of estadoCivil" [ngValue]="p.id"> {{p.nome}} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="conjuge">Conjuge</label>
+                                <input  formControlName="conjuge" type="text" class="form-control" id="conjuge" placeholder="?">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="profissao">Profissão</label>
+                                <input formControlName="profissao" type="text" class="form-control" id="profissao" placeholder="Vendedor(a)?">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="salario">Salário</label>
+                                <input currencyMask formControlName="salario" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                </ba-card>
+            </div>
+            <ba-card title="Contato" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input formControlName="email" type="email" class="form-control" id="emai" placeholder="kodeinside@kodeinside.com?">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="foneResidencial">Telefone Residencial</label>
+                            <p-inputMask  styleClass="form-control h-35" formControlName="foneResidencial" mask="(99) 9999-9999?9" placeholder="(51) 9999-99999?"></p-inputMask>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="foneCelular">Telefone Celular</label>
+                            <p-inputMask  styleClass="form-control h-35" formControlName="fonePessoal" mask="(99) 9999-9999?9" placeholder="(51) 9999-99999?"></p-inputMask>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="foneTrabalho">Telefone do local de Trabalho</label>
+                            <p-inputMask  styleClass="form-control h-35" formControlName="foneTrabalho" mask="(99) 9999-9999?9" placeholder="(51) 9999-99999?"></p-inputMask>
+                        </div>
+                    </div>
+                </div>                
+            </ba-card>
+
+            <ba-card title="Filiação" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="mae">Nome da Mãe</label>
+                            <input formControlName="mae" type="text" class="form-control" id="mae" placeholder="Nome da mãe?">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="pai">Nome do Pai</label>
+                            <input formControlName="pai" type="text" class="form-control" id="pai" placeholder="Nome do pai?">
+                        </div>
+                    </div>
+                </div>
+            </ba-card>
+            <ba-card title="Endereço" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="rua">Rua</label>
+                            <input formControlName="endereco" type="text" class="form-control" id="rua" placeholder="Rua 20 de setembro?">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="numeroCasa">Número</label>
+                            <input formControlName="numeroCasa" type="text" class="form-control" id="numeroCasa" placeholder="147?">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="pais">CEP</label>
+                            <p-inputMask styleClass="form-control h-35" formControlName="cep" mask="99999-999" placeholder="95860-0000?"></p-inputMask>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="rua">Bairro</label>
+                            <input formControlName="bairro" type="text" class="form-control" id="numeroCasa" placeholder="Centro?">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="numeroCasa">Proximidade</label>
+                            <input formControlName="proximidade" type="text" class="form-control" id="rua" placeholder="Ao lado da fábrica?">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="complemento">Complemento</label>
+                            <input formControlName="complemento" type="text" class="form-control" id="complemento" placeholder="Segundo andar?">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="pais">Cidade</label>
+                            <select class="form-control" formControlName="cidade"  >
+                                <option *ngFor="let c of cidades" [ngValue]="c.id"> {{c.nome}} </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="estado">Estado</label>
+                            <select class="form-control" formControlName="estado"  >
+                                <option *ngFor="let e of estados" [ngValue]="e.id"> {{e.nome}} </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="pais">Pais</label>
+                            <select class="form-control" formControlName="pais" >
+                                <option *ngFor="let p of paises" [ngValue]="p.id"> {{p.nome}} </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </ba-card>
+        </div>
+    </div>
+</form>
+
+AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO
+
+
+dt_ultima_compra
+--id
+--nome
+--mae
+--pai
+--genero
+cpf
+rg
+profissao
+naturalidade
+estado_civil
+conjuge
+
+
+--proximidade
+--bairro
+--complemento
+--dt_nascimento
+--fone_pessoal
+--fone_residencial
+--fone_trabalho
+--email
+--salario
+--cidade
+--pais
+--estado
+--cep
+--numero_casa
+--endereco
+
+
+
+
+                                <datepicker-custom formControlName="dtNascimento"  
+                                    singleSelect
+                                    viewFormat="DD/MM/YYYY"
+                                    locale="pt-br" 
+                                    expanded="true">
+                                </datepicker-custom>
+
+<p-inputMask mask="99/99/9999" formControlName="dtNascimento" placeholder="13/07/1985" slotChar="dd/mm/aaaa"  styleClass="form-control h-35"></p-inputMask>-->

@@ -1,0 +1,89 @@
+@import "../../../theme/sass/conf/conf";
+
+.ng2-smart-table-container table.ng2-smart-table {
+    th, td {
+        border: 1px solid $border-light !important;
+        line-height: 35px;
+        vertical-align: middle;
+        /*text-align: center;*/
+    }
+
+    div > img {
+        display: block;
+        margin: auto;
+    }
+    color: $default-text;
+
+    tbody {
+        tr:hover {
+            background: rgba(0, 0, 0, 0.03);
+        }
+    }
+
+    a.ng2-smart-sort-link {
+        font-size: 14px !important;
+        color: $default-text;
+        font-weight: $font-bolder;
+        &.sort {
+            font-weight: $font-bolder !important;
+
+            &::after {
+                border-bottom-color: $default-text !important;
+            }
+        }
+    }
+
+    .ng2-smart-actions {
+        width: 70px;
+        text-align: center;
+        .actions {
+            float: none;
+            text-align: center;
+        }
+    }
+
+    a.ng2-smart-action {
+        font-size: 14px !important;
+        color: $default-text;
+        padding: 0 2px;
+        display: inline-block;
+
+        &.ng2-smart-action-add-add {
+            font-size: 25px !important;
+        }
+    }
+}
+
+nav.ng2-smart-pagination-nav {
+    display: flex;
+    justify-content: center;
+}
+
+.btn:hover {
+    transform: scale(1); 
+    /*transform: scaley(1.2);*/   
+}
+
+.btn-150{
+    min-width: 150px;
+}
+
+.btn-hover:hover {
+    /*transform: scale(1.2);*/ 
+    transform: scaley(1.2);   
+}
+
+.text-centered{
+    text-align: center !important;
+    text-align: -webkit-center !important;
+}
+
+div > div > img{
+    text-align: center !important;
+    text-align: -webkit-center !important;
+    max-width: 150px;
+}
+
+.max-width{
+    max-width: 150px;
+}
